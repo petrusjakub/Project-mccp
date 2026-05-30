@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "feat",
   "description": "Create the complete MCCP product landing page (index.html) following the exact design pattern from index (10).html but with all MCCP-specific content, working calculator, and all required tabs.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Create /projects/sandbox/Project-mccp/index.html as a single-file HTML page following the exact CSS styling, layout structure, and JavaScript patterns from the reference template 'index (10).html'",
     "STICKY HEADER: Implement the wa-banner div at the top with 'Petrus Jakub Partner Bisnis Manulife' + WhatsApp SVG icon + '087781896087'. Link to https://wa.me/6287781896087?text=Pak%20Petrus%2C%20saya%20mau%20tanya%20soal%20MCCP",
@@ -41,5 +41,5 @@
     "Run: node -e \"const fs=require('fs'); const html=fs.readFileSync('/projects/sandbox/Project-mccp/index.html','utf8'); if(html.includes('MDLA')) { console.log('ERROR: Found MDLA reference in MCCP page'); process.exit(1); } console.log('No MDLA references found - PASSED');\""
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "NODE_OPTIONS env var causes module not found error; use 'unset NODE_OPTIONS &&' before node commands. All 24/24 verification checks pass. File is 45473 bytes with all 8 tabs, working calculator referencing data_premi_mccp.json, sticky WA banner, floating WA button, FAQ accordion, and responsive CSS. No MDLA references."
 }
