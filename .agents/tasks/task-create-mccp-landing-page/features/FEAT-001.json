@@ -1,0 +1,45 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Create the complete MCCP product landing page (index.html) following the exact design pattern from index (10).html but with all MCCP-specific content, working calculator, and all required tabs.",
+  "status": "completed",
+  "steps": [
+    "Create /projects/sandbox/Project-mccp/index.html as a single-file HTML page following the exact CSS styling, layout structure, and JavaScript patterns from the reference template 'index (10).html'",
+    "STICKY HEADER: Implement the wa-banner div at the top with 'Petrus Jakub Partner Bisnis Manulife' + WhatsApp SVG icon + '087781896087'. Link to https://wa.me/6287781896087?text=Pak%20Petrus%2C%20saya%20mau%20tanya%20soal%20MCCP",
+    "FLOATING WA BUTTON: Bottom-right floating button with same WA link and 'Tanya Pak Petrus' text",
+    "HEADER: Green gradient header with 'MCCP - Manulife Critical Care Protection' title and subtitle about comprehensive critical illness protection until age 85",
+    "TAB NAVIGATION: 8 tabs - Ringkasan, Plan 1, Plan 2, Perbandingan, Manfaat, Tabel Premi, Kalkulator, FAQ. Use emoji icons like the reference. Tabs sticky below the WA banner.",
+    "TAB 0 - RINGKASAN: Overview explaining MCCP in simple language for laypeople. Cover: what is MCCP (critical illness insurance protecting 150 diseases from early to advanced stage until age 85), two plan options overview (Plan 1 = basic 85 advanced CI, Plan 2 = complete 65 early + 85 advanced + ICU), key selling points (no survival period, end-of-term benefit at 85, coverage from age 30 days to 60 years entry). Use info-box, highlight-box styling.",
+    "TAB 1 - PLAN 1: Detailed Plan 1 (Basic Critical Illness Protection). Benefits: Death Benefit 100% UP + Tambahan UP, Advanced Stage CI (85 types), Angioplasty Benefit (25% UP max 250jt, acceleration), End of Term Benefit (100% UP + Tambahan Nilai Tunai). Explain each benefit simply. Include specs table (usia masuk 30 hari-60 tahun, MPP 10/15/20/RP, masa pertanggungan sampai 85 tahun, UP mulai 200jt, eliminasi 90 hari).",
+    "TAB 2 - PLAN 2: Detailed Plan 2 (Complete Critical Illness Protection). All Plan 1 benefits PLUS: Early Stage CI (65 types, 25% UP max 1.5M, acceleration), ICU/ICCU/PICU benefit (for ALL diseases requiring ventilator 120hrs/5days), Cancer UP Renewal (25% UP max 1.5M, additional benefit). Explain why Plan 2 is more comprehensive.",
+    "TAB 3 - PERBANDINGAN: Comparison table Plan 1 vs Plan 2 showing all benefit differences side by side. Include a 'how to choose' section with plan-cards showing who each plan is best for.",
+    "TAB 4 - MANFAAT: Detailed benefits explanation including: list of 85 advanced stage diseases (categorized), list of 65 early stage diseases (Plan 2), explanation of acceleration vs additional benefits, elimination period (90 days) explanation, what happens at age 85 (end of term benefit), non-guaranteed bonuses (Tambahan UP, Tambahan Nilai Tunai), and exclusions (suicide 2yr, criminal acts, pre-existing undeclared conditions).",
+    "TAB 5 - TABEL PREMI: Sample premium tables showing example premiums for common ages (25, 30, 35, 40, 45, 50) for both plans, both genders, different MPP options, UP 1 Miliar. Include note directing to calculator for personalized quotes.",
+    "TAB 6 - KALKULATOR (MOST CRITICAL): Implement working premium calculator that: (a) loads data from data_premi_mccp.json via fetch(), (b) has dropdown fields for Plan (1/2), Gender (Pria/Wanita), Usia (0-60), UP (500 Juta/1 Miliar/1.5 Miliar/2 Miliar/2.5 Miliar/5 Miliar/10 Miliar mapping to keys 0.5M/1M/1.5M/2M/2.5M/5M/10M), MPP (10/15/20/Regular Premium mapping to keys 10/15/20/RP), (c) builds lookup key as 'plan|gender|age|mpp' and retrieves the UP column value, (d) shows annual premium + semester (x0.525) + quarterly (x0.275) + monthly (x0.095), (e) handles '-' values gracefully with 'Tidak Tersedia' message, (f) shows profile summary, (g) includes error handling for fetch failure with instructions to use local web server.",
+    "TAB 7 - FAQ: At least 10 FAQ items covering: What is MCCP, difference between Plan 1 and 2, what diseases are covered, what is elimination period, what happens at age 85, can I claim multiple times, what is acceleration benefit, how to claim, what about pre-existing conditions, minimum UP. All in simple Bahasa Indonesia.",
+    "JAVASCRIPT: Implement showTab(), toggleFaq(), calculate(), formatRupiah() functions following the same pattern as the reference. The calculator lookup is SIMPLER than MDLA - key format is just 'plan|gender|age|mpp' directly matching the JSON keys. No complex table parsing needed.",
+    "RESPONSIVE: Include all media queries from the reference for mobile (max-width:768px and max-width:480px)",
+    "LANGUAGE: All content in Bahasa Indonesia, using simple language accessible to laypeople. Avoid jargon or explain insurance terms when used."
+  ],
+  "acceptance_criteria": [
+    "File /projects/sandbox/Project-mccp/index.html exists and is valid HTML5",
+    "Sticky WA banner at top with correct name, phone, SVG icon, and clickable WA link with pre-filled MCCP message",
+    "Floating WA button in bottom-right corner",
+    "8 working tabs (Ringkasan, Plan 1, Plan 2, Perbandingan, Manfaat, Tabel Premi, Kalkulator, FAQ)",
+    "Calculator loads premium data from data_premi_mccp.json via fetch()",
+    "Calculator correctly looks up premiums using key format 'plan|gender|age|mpp'",
+    "Calculator displays annual, semester (0.525x), quarterly (0.275x), monthly (0.095x) premiums",
+    "Calculator handles unavailable combinations ('-' values) with clear message",
+    "All content is about MCCP product (not MDLA)",
+    "FAQ accordion works with toggle",
+    "Page is mobile responsive",
+    "Green Manulife color scheme matches reference"
+  ],
+  "verification": [
+    "Run: node -e \"const fs=require('fs'); const html=fs.readFileSync('/projects/sandbox/Project-mccp/index.html','utf8'); console.log('File size:', html.length, 'bytes'); const checks=['wa-banner','floating-wa','calc-plan','calc-gender','calc-age','calc-up','calc-mpp','showTab','calculate','formatRupiah','data_premi_mccp.json','MCCP','Manulife Critical Care','087781896087','Petrus Jakub','tab0','tab1','tab2','tab3','tab4','tab5','tab6','tab7','toggleFaq']; let pass=0; checks.forEach(c=>{if(html.includes(c)){pass++}else{console.log('MISSING:',c)}}); console.log(pass+'/'+checks.length+' checks passed'); if(pass<checks.length) process.exit(1);\"",
+    "Run: node -e \"const d=require('/projects/sandbox/Project-mccp/data_premi_mccp.json'); const keys=Object.keys(d); console.log(keys.length+' entries'); const test=d['1|pria|30|10']; if(!test) throw new Error('Missing key 1|pria|30|10'); console.log('Plan1 Pria 30 MPP10:', test); if(test['1M']!=='32.4') throw new Error('Value mismatch'); console.log('Data validation PASSED');\"",
+    "Run: node -e \"const fs=require('fs'); const html=fs.readFileSync('/projects/sandbox/Project-mccp/index.html','utf8'); if(html.includes('MDLA')) { console.log('ERROR: Found MDLA reference in MCCP page'); process.exit(1); } console.log('No MDLA references found - PASSED');\""
+  ],
+  "blocked_reason": null,
+  "findings": "NODE_OPTIONS env var causes module not found error; use 'unset NODE_OPTIONS &&' before node commands. All 24/24 verification checks pass. File is 45473 bytes with all 8 tabs, working calculator referencing data_premi_mccp.json, sticky WA banner, floating WA button, FAQ accordion, and responsive CSS. No MDLA references."
+}
