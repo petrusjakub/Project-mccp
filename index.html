@@ -119,14 +119,14 @@ Tanya Pak Petrus
 <!-- Tab Navigation -->
 <div class="tabs-container">
 <ul class="tabs" id="tabNav" role="tablist">
-<li class="active" role="tab" tabindex="0" onclick="showTab(0)">&#127968; Ringkasan</li>
-<li role="tab" tabindex="0" onclick="showTab(1)">&#127311; Plan 1</li>
-<li role="tab" tabindex="0" onclick="showTab(2)">&#127312; Plan 2</li>
-<li role="tab" tabindex="0" onclick="showTab(3)">&#128202; Perbandingan</li>
-<li role="tab" tabindex="0" onclick="showTab(4)">&#128155; Manfaat</li>
-<li role="tab" tabindex="0" onclick="showTab(5)">&#128203; Tabel Premi</li>
-<li role="tab" tabindex="0" onclick="showTab(6)">&#129518; Kalkulator</li>
-<li role="tab" tabindex="0" onclick="showTab(7)">&#10067; FAQ</li>
+<li class="active" role="tab" tabindex="0" onclick="showTab(0)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(0);event.preventDefault()}">&#127968; Ringkasan</li>
+<li role="tab" tabindex="0" onclick="showTab(1)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(1);event.preventDefault()}">&#127311; Plan 1</li>
+<li role="tab" tabindex="0" onclick="showTab(2)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(2);event.preventDefault()}">&#127312; Plan 2</li>
+<li role="tab" tabindex="0" onclick="showTab(3)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(3);event.preventDefault()}">&#128202; Perbandingan</li>
+<li role="tab" tabindex="0" onclick="showTab(4)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(4);event.preventDefault()}">&#128155; Manfaat</li>
+<li role="tab" tabindex="0" onclick="showTab(5)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(5);event.preventDefault()}">&#128203; Tabel Premi</li>
+<li role="tab" tabindex="0" onclick="showTab(6)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(6);event.preventDefault()}">&#129518; Kalkulator</li>
+<li role="tab" tabindex="0" onclick="showTab(7)" onkeydown="if(event.key==='Enter'||event.key===' '){showTab(7);event.preventDefault()}">&#10067; FAQ</li>
 </ul>
 </div>
 <!-- TAB 0: Ringkasan -->
@@ -727,7 +727,10 @@ var premiumData = null;
 
 function loadPremiumData() {
     fetch('data_premi_mccp.json')
-        .then(function(response) { return response.json(); })
+        .then(function(response) {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return response.json();
+        })
         .then(function(data) {
             premiumData = data;
             initCalcUI();
@@ -814,6 +817,7 @@ function calculate() {
     modesEl.style.display = 'grid';
 
     var tahunan = parseFloat(value);
+    // Manulife standard payment mode loading factors
     var semesteran = tahunan * 0.525;
     var kuartalan = tahunan * 0.275;
     var bulanan = tahunan * 0.095;
